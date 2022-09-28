@@ -10,6 +10,7 @@ class Dashboard extends StatefulWidget {
 class _DashboardState extends State<Dashboard> {
   @override
   Widget build(BuildContext context) {
+    String username = ModalRoute.of(context)!.settings.arguments.toString();
     return Scaffold(
         appBar: AppBar(title: Text("Dashboard")),
         body: Container(
@@ -22,7 +23,7 @@ class _DashboardState extends State<Dashboard> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Text(
-                  "Dashboard",
+                  "Selamat Datang " + username,
                   style: TextStyle(fontSize: 36, fontWeight: FontWeight.bold),
                 ),
               ],

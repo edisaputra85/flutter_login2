@@ -12,6 +12,7 @@ class Login extends StatefulWidget {
 class _LoginState extends State<Login> {
   GlobalKey<FormState> formKey = GlobalKey<FormState>();
   TextEditingController textControllerUsername = TextEditingController();
+  TextEditingController textControllerPassword = TextEditingController();
   @override
   Widget build(BuildContext context) {
     final inputUsername = Padding(
@@ -26,18 +27,32 @@ class _LoginState extends State<Login> {
           textCapitalization: TextCapitalization.words,
           keyboardType: TextInputType.text,
           textInputAction: TextInputAction.next,
+          validator: (value) {
+            //validation rules
+            if (value == null || value.isEmpty) {
+              return "username belum diisi";
+            }
+          },
         ));
     final inputPassword = Padding(
         padding: EdgeInsets.fromLTRB(5, 0, 5, 10),
         child: TextFormField(
           decoration: InputDecoration(
-            hintText: 'Inputkan nama',
-            icon: Icon(Icons.person),
+            hintText: 'Inputkan password',
+            icon: Icon(Icons.lock),
           ),
+          controller: textControllerPassword,
+          obscureText: true,
           autofocus: true,
           textCapitalization: TextCapitalization.words,
           keyboardType: TextInputType.text,
           textInputAction: TextInputAction.next,
+          validator: (value) {
+            //VALIDATION RULES
+            if (value == null || value.isEmpty) {
+              return "Password belum diisi";
+            }
+          },
         ));
 
     return Scaffold(
@@ -66,11 +81,26 @@ class _LoginState extends State<Login> {
                           child: Padding(
                               padding: EdgeInsets.only(top: 20),
                               child: ElevatedButton(
-                                child: Text("Login"),
-                                onPressed: () => Navigator.pushNamed(
-                                    context, '/dashboard',
-                                    arguments: textControllerUsername.text),
-                              )))
+                                  child: Text("Login"),
+                                  onPressed: () {
+                                    if (formKey.currentState!.validate()) {
+                                      if (textControllerUsername.text ==
+                                              "admin" &&
+                                          textControllerPassword.text ==
+                                              "admin") {
+                                        Navigator.pushNamed(
+                                            context, '/dashboard',
+                                            arguments:
+                                                textControllerUsername.text);
+                                      } else {
+                                        ScaffoldMessenger.of(context)
+                                            .showSnackBar(SnackBar(
+                                          content: Text(
+                                              "Username dan password salah"),
+                                        ));
+                                      }
+                                    }
+                                  })))
                     ],
                   ),
                 )
