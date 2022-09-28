@@ -11,6 +11,7 @@ class Login extends StatefulWidget {
 
 class _LoginState extends State<Login> {
   GlobalKey<FormState> formKey = GlobalKey<FormState>();
+  TextEditingController textControllerUsername = TextEditingController();
   @override
   Widget build(BuildContext context) {
     final inputUsername = Padding(
@@ -20,6 +21,7 @@ class _LoginState extends State<Login> {
             hintText: 'Inputkan nama',
             icon: Icon(Icons.person),
           ),
+          controller: textControllerUsername,
           autofocus: true,
           textCapitalization: TextCapitalization.words,
           keyboardType: TextInputType.text,
@@ -65,7 +67,9 @@ class _LoginState extends State<Login> {
                               padding: EdgeInsets.only(top: 20),
                               child: ElevatedButton(
                                 child: Text("Login"),
-                                onPressed: () => null,
+                                onPressed: () => Navigator.pushNamed(
+                                    context, '/dashboard',
+                                    arguments: textControllerUsername.text),
                               )))
                     ],
                   ),

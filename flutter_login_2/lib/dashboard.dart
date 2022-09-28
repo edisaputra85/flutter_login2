@@ -1,5 +1,3 @@
-import 'dart:ui';
-
 import 'package:flutter/material.dart';
 
 class Dashboard extends StatefulWidget {
@@ -13,6 +11,7 @@ class _DashboardState extends State<Dashboard> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+        appBar: AppBar(title: Text("Dashboard")),
         body: Container(
             constraints: BoxConstraints.expand(),
             decoration: BoxDecoration(
